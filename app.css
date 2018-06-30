@@ -1,0 +1,102 @@
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #eeeeee url('img/cloth_alike.png'); /* Background pattern from Subtle Patterns */
+    font-family: 'Titillium Web', sans-serif; /* Font family from Google Fonts */
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Styles for the deck of cards */
+
+.deck {
+    width: 660px;
+    min-height: 680px;
+    background: linear-gradient(135deg, rgba(73,155,234,1) 0%, rgba(73,155,234,1) 33%, rgba(27,100,179,1) 66%, rgba(27,100,179,1) 100%);
+    padding: 32px;
+    border-radius: 20px;
+    box-shadow: 22px 25px 30px 0 rgba(46, 61, 73, 0.75);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 3em;
+}
+
+.deck .card {
+    height: 125px;
+    width: 125px;
+    background: #102333;
+    font-size: 0;
+    color: #ffffff;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 15px 12px 30px 0 rgba(46, 61, 73, 0.75);
+}
+
+.deck .card.open {
+    transform: rotateY(0);
+    background: #02b3e4;
+    cursor: default;
+}
+
+.deck .card.show {
+    font-size: 33px;
+}
+
+.deck .card.match {
+    cursor: default;
+    background: #5f2dda;
+    font-size: 33px;
+}
+
+/* Styles for the Score Panel */
+
+.score-panel {
+    text-align: left;
+    width: 560px;
+    margin-bottom: 10px;
+    font-size: 1.5em;
+}
+
+.score-panel .stars {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    margin: 0 5px 0 0;
+}
+
+.score-panel .stars li {
+    list-style: none;
+    display: inline-block;
+    color: orange;
+}
+
+.score-panel .restart {
+    float: right;
+    cursor: pointer;
+}
