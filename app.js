@@ -22,8 +22,6 @@ var deckOfCards = [
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
  */
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -43,17 +41,30 @@ function shuffle(array) {
 
 var shuffledDeckOfCards = shuffle(deckOfCards);
 
+/*  *   - loop through each card and create its HTML
+*/
 function createHtmlCard(shuffledDeckOfCards) {
   var htmlCard = '';
 
-  for (var shuffledCard = shuffledDeckOfCards.length - 1; shuffledCard >= 0; shuffledCard-=1){
-    htmlCard += '<li class = "card">' + shuffledDeckOfCards[shuffledCard] + '</li>';
+  for (var i = shuffledDeckOfCards.length - 1; i >= 0; i--){
+    htmlCard += '<li class = "card">' + shuffledDeckOfCards[i] + '</li>';
     }
 
     return htmlCard;
 }
 
-createHtmlCard(shuffledDeckOfCards);
+/*   *   - add each card's HTML to the page
+*/
+
+$('.deck').html(createHtmlCard(shuffledDeckOfCards));
+
+
+ /* - display the card's symbol (put this functionality in another function that you call from this one) */
+$(".deck .card").on("click", function() {
+    $(this).toggleClass(".card show open");
+});
+
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
