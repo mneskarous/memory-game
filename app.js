@@ -22,16 +22,16 @@ var deckOfCards = [
 
 function shuffle(array) {
 /* Function that shuffles the list of cards using the provided "shuffle" method below.  Shuffle function from http://stackoverflow.com/a/2450976 */
-    var currentIndex = array.length, temporaryValue, randomIndex;
+  var currentIndex = array.length, temporaryValue, randomIndex;
 
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
-    return array;
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+  return array;
 }
 
 /* The shuffled deck of cards are assigned a variable */
@@ -52,7 +52,7 @@ $('.deck').html(createHtmlCard(shuffledDeckOfCards));
 
 /* --When cards are clicked-- */
 
-/* When a card is clicked, the card is opened and it's display is shown */
+/* When a card is clicked, the card is opened and its picture is shown */
 $('.deck .card').on('click', function() {
   $(this).addClass('.card show open');
 });
@@ -60,35 +60,94 @@ $('.deck .card').on('click', function() {
 /* When a card is clicked, it's added to a *list* of "open" cards */
 var openCards = [];
 $('.deck .card').on('click', function() {
-  $('.card show open').each(function() {
-    openCards.push($(this));
-  });
+  openCards.push($(this).children());
 });
+console.log(openCards);
 
-if (openCards.length === 2) {
-/* If the list of open cards already has another card, two cards are checked to see if they match */
-  if (openCards[0] === openCards[1]) {
-  /* If the cards do match, the cards are locked in the open position */
-    $('.card show open').addClass('.card match').removeClass('.card show open');
-  }
-  else {
-    /* If the cards do not match, the cards are removed from the list and the card's are put in the closed position */
-    openCards.length = 0;
-    $('.card show open').addClass('.deck .card').removeClass('.card show open');
+function checkMatch() {
+/* Function that checks if the cards in the openCards list match */
+  if (openCards.length === 2) {
+  /* If the list of open cards is two cards, the cards are checked to see if they match */
+    if (openCards[0] === openCards[1]) {
+    /* If the cards match, the cards are locked in the open position */
+      $('.card show open').addClass('.card match');
+    }
+    else {
+      /* If the cards do not match, the cards are removed from the list and the card's are put in the closed position */
+      $('.card show open').addClass('.deck .card').removeClass('.card show open');
+      openCards.length = 0;
+    }
   }
 }
 
-/* Function that restarts the game when the Restart button on the Score Panel is clicked */
+checkMatch(openCards)
+console.log(checkMatch(openCards));
+
+/* Function that increments the Move Counter in the Score Panel when a card is clicked and displays it on the page with help from https://stackoverflow.com/questions/4701349/ */
+$('.deck .card').on('click', function() {
+  $('.score-panel .moves').html(function(i, val) { return +val+1 });
+});
+
+/* Function that starts the Timer in the Score Panel when the first card is clicked with help from https://stackoverflow.com/questions/5517597/ */
+$('.deck').one('click',function() {
+  var sec = 0;
+  function pad ( val ) { return val > 9 ? val : "0" + val; }
+  setInterval( function(){
+    $('#seconds').html(pad(++sec % 60));
+    $('#minutes').html(pad(parseInt(sec / 60, 10)));
+  }, 1000);
+});
+
+/*$('.deck').on('click', function() {
+  $('#star3').css('color', 'gray');
+});*/
+
+/* Function that lowers the Star Rating after a certain amount of time */
+/* $(document).ready(function() {
+  var minutes = $('#minutes');
+
+  if (minutes === 00) {
+  /* Removes a star after 1 minute 
+    $('#star3').css('color', 'gray');
+  }
+
+  if (minutes >= 02) {
+  /* Removes a star after 2 minutes
+    $('#star2').css('color', 'gray');
+  }
+});
+*/
+
+/* Function that restarts the game when the Restart Button on the Score Panel is clicked */
 $('.score-panel .restart').on('click', function() {
+/* When the Restart Button is clicked */
   var shuffledDeckOfCards = shuffle(deckOfCards);
   $('.deck').html(createHtmlCard(shuffledDeckOfCards));
-  $('.deck .card').on('click', function() {
+  $('.deck .card').on('click', function() { // When card is clicked, it's opened
     $(this).addClass('.card show open');
   });
+  $('.score-panel .moves').html(function(i, val) { return 0 }); // Move Counter reset to 0
+  $('.deck .card').on('click', function() { // Move Counter increments with each move
+      $('.moves').html(function(i, val) { return +val+1 });
+  });
+
+/* Need to reset timer
+  var resetTimer = function () {
+    clearInterval(pad)
+  };
+
+  $('.deck').one('click',function() { // Timer starts when first card is clicked
+    var sec = 0;
+    function pad ( val ) { return val > 9 ? val : "0" + val; }
+    setInterval( function(){
+        $("#seconds").html(pad(++sec % 60));
+        $("#minutes").html(pad(parseInt(sec / 60, 10)));
+    }, 1000);
+  });
+  */
 });
 
 /*
  * set up the event listener for a card. If a card is clicked:
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
