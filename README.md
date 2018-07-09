@@ -12,5 +12,5 @@ Features:
 - When the user wins, the user is congratulated and the game tells the user what the star rating was, how long it took to win the game, and how many moves were made. The user is asked to play again.
 
 Extras
-- CSS animations when cards are clicked, unsuccessfully matched, and successfully matched
+- CSS animations when cards are unsuccessfully or successfully matched.
 - 
