@@ -96,6 +96,14 @@ body {
     color: orange;
 }
 
+.score-panel .moves {
+    margin-left: 75px;
+}
+
+.score-panel .timer {
+    margin-left: 75px;
+}
+
 .score-panel .restart {
     float: right;
     cursor: pointer;
