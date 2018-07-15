@@ -23,7 +23,6 @@ var deckOfCards = [
 function shuffle(array) {
 /* Function that shuffles the list of cards using the provided "shuffle" method below.  Shuffle function from http://stackoverflow.com/a/2450976 */
   var currentIndex = array.length, temporaryValue, randomIndex;
-
   while (currentIndex !== 0) {
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex -= 1;
@@ -36,11 +35,9 @@ function shuffle(array) {
 
 /* The shuffled deck of cards are assigned a variable */
 var shuffledDeckOfCards = shuffle(deckOfCards);
-
 function createHtmlCard(shuffledDeckOfCards) {
 /*  Function that loops through each card and create its HTML */
   var htmlCard = '';
-
   for (var i = shuffledDeckOfCards.length - 1; i >= 0; i--) {
     htmlCard += '<li class = "card">' + shuffledDeckOfCards[i] + '</li>';
   }
@@ -52,7 +49,7 @@ $('.deck').html(createHtmlCard(shuffledDeckOfCards));
 
 /* --When cards are clicked-- */
 
-/* When a card is clicked, the card is opened and its picture is shown */
+/* When a card is clicked, the card is opened to display its picture */
 $('.deck .card').on('click', function() {
   $(this).addClass('.card show open');
 });
@@ -79,75 +76,58 @@ function checkMatch() {
     }
   }
 }
-
-checkMatch(openCards)
+checkMatch(openCards);
 console.log(checkMatch(openCards));
 
-/* Function that increments the Move Counter in the Score Panel when a card is clicked and displays it on the page with help from https://stackoverflow.com/questions/4701349/ */
 $('.deck .card').on('click', function() {
-  $('.score-panel .moves').html(function(i, val) { return +val+1 });
+  /* Function that increments the Move Counter in the Score Panel when a card is clicked and displays it on the page with help from https://stackoverflow.com/questions/4701349/ */
+  $('.score-panel .moves').html(function(i, val) { return + val + 1 });
 });
 
-/* Function that starts the Timer in the Score Panel when the first card is clicked with help from https://stackoverflow.com/questions/5517597/ */
-$('.deck').one('click',function() {
+var timer;
+$('.deck').one('click', function() {
+  /* Function that starts the Timer in the Score Panel when the first card is clicked with help from https://stackoverflow.com/questions/5517597/ */
   var sec = 0;
   function pad ( val ) { return val > 9 ? val : "0" + val; }
-  setInterval( function(){
+  timer = setInterval( function(){
     $('#seconds').html(pad(++sec % 60));
     $('#minutes').html(pad(parseInt(sec / 60, 10)));
   }, 1000);
+  /* Once Timer starts, Grays out Star on the right (lowers Star Rating to two Stars) after 2 minutes with help from https://stackoverflow.com/questions/14247054/ */
+  setTimeout(function(){ $('#star3').css('color', 'gray'); },120000);
+  /* Once Timer starts, Grays out Star in the middle (lowers Star Rating to one Star) after 4 minutes with help from https://stackoverflow.com/questions/14247054/ */
+  setTimeout(function(){ $('#star2').css('color', 'gray'); },240000);
 });
 
-/*$('.deck').on('click', function() {
-  $('#star3').css('color', 'gray');
-});*/
-
-/* Function that lowers the Star Rating after a certain amount of time */
-/* $(document).ready(function() {
-  var minutes = $('#minutes');
-
-  if (minutes === 00) {
-  /* Removes a star after 1 minute 
-    $('#star3').css('color', 'gray');
-  }
-
-  if (minutes >= 02) {
-  /* Removes a star after 2 minutes
-    $('#star2').css('color', 'gray');
-  }
-});
-*/
-
-/* Function that restarts the game when the Restart Button on the Score Panel is clicked */
 $('.score-panel .restart').on('click', function() {
-/* When the Restart Button is clicked */
+/* Function that restarts the game when the Restart Button on the Score Panel is clicked */
   var shuffledDeckOfCards = shuffle(deckOfCards);
   $('.deck').html(createHtmlCard(shuffledDeckOfCards));
-  $('.deck .card').on('click', function() { // When card is clicked, it's opened
+  $('.deck .card').on('click', function() { // When a card is clicked, it's opened to display its picture
     $(this).addClass('.card show open');
   });
-  $('.score-panel .moves').html(function(i, val) { return 0 }); // Move Counter reset to 0
-  $('.deck .card').on('click', function() { // Move Counter increments with each move
+  $('.score-panel .moves').html(function(i, val) { return 0 }); // Move Counter resets to 0
+  $('.deck .card').on('click', function() { // Move Counter increments with each Move
       $('.moves').html(function(i, val) { return +val+1 });
   });
-
-/* Need to reset timer
-  var resetTimer = function () {
-    clearInterval(pad)
-  };
-
-  $('.deck').one('click',function() { // Timer starts when first card is clicked
+  $('#star3, #star2').css('color', 'orange'); // Resets Star Rating to 3 Stars
+  clearInterval(timer); // Stops Timer so it can be restarted when game is restarted
+  $('#seconds, #minutes').html('00'); // Displays the Timer as 00:00
+  $('.deck').one('click',function() { // Starts the Timer again
     var sec = 0;
     function pad ( val ) { return val > 9 ? val : "0" + val; }
-    setInterval( function(){
-        $("#seconds").html(pad(++sec % 60));
-        $("#minutes").html(pad(parseInt(sec / 60, 10)));
+    timer = setInterval( function(){
+      $('#seconds').html(pad(++sec % 60));
+      $('#minutes').html(pad(parseInt(sec / 60, 10)));
     }, 1000);
+    setTimeout(function(){ $('#star3').css('color', 'gray'); },120000); // Lowers the Star Rating to 2 Stars after 2 minutes
+    setTimeout(function(){ $('#star2').css('color', 'gray'); },240000); // Lowers the Star Rating to 1 Star after 4 minutes
   });
-  */
 });
 
 /*
  * set up the event listener for a card. If a card is clicked:
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
+
+clearInterval(timer);
  */
