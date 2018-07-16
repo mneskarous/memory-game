@@ -21,7 +21,7 @@ var deckOfCards = [
 /* --Displaying the cards on the page-- */
 
 function shuffle(array) {
-/* Function that shuffles the list of cards using the provided "shuffle" method below.  Shuffle function from http://stackoverflow.com/a/2450976 */
+  /* Function that shuffles the list of cards using the provided "shuffle" method below.  Shuffle function from http://stackoverflow.com/a/2450976 */
   var currentIndex = array.length, temporaryValue, randomIndex;
   while (currentIndex !== 0) {
     randomIndex = Math.floor(Math.random() * currentIndex);
@@ -36,7 +36,7 @@ function shuffle(array) {
 /* The shuffled deck of cards are assigned a variable */
 var shuffledDeckOfCards = shuffle(deckOfCards);
 function createHtmlCard(shuffledDeckOfCards) {
-/*  Function that loops through each card and create its HTML */
+  /* Function that loops through each card and create its HTML */
   var htmlCard = '';
   for (var i = shuffledDeckOfCards.length - 1; i >= 0; i--) {
     htmlCard += '<li class = "card">' + shuffledDeckOfCards[i] + '</li>';
@@ -49,35 +49,35 @@ $('.deck').html(createHtmlCard(shuffledDeckOfCards));
 
 /* --When cards are clicked-- */
 
-/* When a card is clicked, the card is opened to display its picture */
-$('.deck .card').on('click', function() {
-  $(this).addClass('.card show open');
-});
-
-/* When a card is clicked, it's added to a *list* of "open" cards */
+/* When a card is clicked, the card is opened to display its picture and it's added to a *list* of "open" cards*/
 var openCards = [];
 $('.deck .card').on('click', function() {
+  $(this).addClass('.card show open');
   openCards.push($(this).children());
 });
-console.log(openCards);
 
+var matchedCards = [];
 function checkMatch() {
-/* Function that checks if the cards in the openCards list match */
+  /* Function that checks if the cards in the openCards list match */
   if (openCards.length === 2) {
   /* If the list of open cards is two cards, the cards are checked to see if they match */
     if (openCards[0] === openCards[1]) {
-    /* If the cards match, the cards are locked in the open position */
-      $('.card show open').addClass('.card match');
+    /* If the cards match, the cards are locked in the open position, the cards are removed from the openCards list and are added to the matchedCards list.*/
+      $('.card show open').addClass('.card match').removeClass('.card show open');
+      matchedCards.push(openCards[0], openCards[1]);
+      openCards.length = 0;
     }
     else {
-      /* If the cards do not match, the cards are removed from the list and the card's are put in the closed position */
+    /* If the cards do not match, the card's are put in the closed position and the cards are removed from the openCards list. */
       $('.card show open').addClass('.deck .card').removeClass('.card show open');
       openCards.length = 0;
     }
   }
 }
-checkMatch(openCards);
-console.log(checkMatch(openCards));
+checkMatch();
+
+
+console.log(openCards);
 
 $('.deck .card').on('click', function() {
   /* Function that increments the Move Counter in the Score Panel when a card is clicked and displays it on the page with help from https://stackoverflow.com/questions/4701349/ */
