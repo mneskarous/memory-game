@@ -9,8 +9,11 @@ Features:
 - A timer is displayed which counts up from 0 when the game starts. When the user wins, the timer stops.
 - The game displays the current number of moves.
 - A restart button is present to allow the user to reset the board, star rating, and timer.
-- When the user wins, the user is congratulated and the game tells the user what the star rating was, how long it took to win the game, and how many moves were made. The user is asked to play again.
+- When the user wins, the user is congratulated and the game tells the user what the star rating was, how long it took to win the game, and how many moves were made. The user is then asked to play again.
 
-Extras
-- CSS animations when cards are unsuccessfully or successfully matched.
-- 
+Extras:
+- CSS animations when:
+  - The cards are opened
+  - The cards are unsuccessfully matched
+  - The cards are successfully matched
+  - The Final Scoreboard appears
