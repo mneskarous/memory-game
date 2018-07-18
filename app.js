@@ -50,47 +50,77 @@ $('.deck').html(createHtmlCard(shuffledDeckOfCards));
 /* --When cards are clicked-- */
 
 var openCards = [];
+var matchedCards = [];
 $('.deck .card').on('click', function() {
   /* Function that executes when a card is clicked:
-  - The card is opened to display its picture with code for flip animation taken from http://www.theappguruz.com/tag-tools/web/CSSAnimations/
-  -  The Move Counter in the Score Panel and the Final Scoreboard is incremented and displayed with help from https://stackoverflow.com/questions/4701349/
-  - The card is added to a *list* of "open" cards */
-  $(this).addClass('.card show open').css({'-webkit-backface-visibility': 'visible !important', 'backface-visibility': 'visible !important', '-webkit-animation-name': 'flipInY', 'animation-name': 'flipInY', '-webkit-animation-duration': '0.75s', 'animation-duration': '0.75s', '-webkit-animation-fill-mode': 'both', 'animation-fill-mode': 'both'});
+    -  The Move Counter in the Score Panel and the Final Scoreboard is incremented and displayed with help from https://stackoverflow.com/questions/4701349/
+    - The card is opened to display its picture with code for flip animation taken from http://www.theappguruz.com/tag-tools/web/CSSAnimations/
+    - The card is added to a *list* of "open" cards */
   $('.score-panel .moves, .final-scoreboard .moves').html(function(i, val) { return + val + 1 });
-  openCards.push($(this).children());
+
+  var openedCard = $(this).addClass('.card show open').children();
+
+  openCards.push(openedCard);
+  console.log("openCards.length: " + openCards.length);
+  console.log(openCards[0].attr('class') === openCards[1].attr('class'));
+  console.log("openCards[0] before checkMatch method: " + openCards[0].attr('class'));
+  console.log("openCards[1] before checkMatch method: " + openCards[1].attr('class'));
+  if (openCards.length === 2) {
+    /* If the list of open cards is two cards, the checkMatch function is executed to check if the two cards match */
+    console.log("checkMatch has been called");
+    checkMatch();
+  }
+  else {
+    console.log("checkMatch has not been called");
+    openCards.length != 2;
+  }
 });
 
-console.log(openCards);
-
-var matchedCards = [];
 function checkMatch() {
   /* Function that checks if the cards in the openCards list match */
-  if (openCards.length === 2) {
-  /* If the list of open cards is two cards, the cards are checked to see if they match */
-    if (openCards[0] === openCards[1]) {
-      console.log('Test: Match!')
+  if (openCards[0].attr('class') === openCards[1].attr('class')) {
     /* If the cards match, the cards are locked in the open position, the cards are removed from the openCards list and are added to the matchedCards list. Code for bounceIn animation taken from https://robots.thoughtbot.com/css-animation-for-beginners */
-      $('.card show open').addClass('.card match').removeClass('.card show open').css({'animation-name': 'bounceIn', 'animation-duration': '0.5s'});
-      matchedCards.push(openCards[0], openCards[1]);
-      openCards.length = 0;
-    }
-    else {
-    /* If the cards do not match, the card's are put in the closed position and the cards are removed from the openCards list. Code for shake animation taken from https://www.w3schools.com/howto/howto_css_shake_image.asp */
-      console.log('Test: Not a Match!')
-      $('.card show open').addClass('.deck .card').removeClass('.card show open').css('animation', 'shake 0.5s');
-      openCards.length = 0;
-    }
+    console.log("Cards match");
+    $(openCards[0]).parent().removeClass('.card show open').addClass('.card match').css({'animation-name': 'bounceIn', 'animation-duration': '0.5s'});
+    $(openCards[1]).parent().removeClass('.card show open').addClass('.card match').css({'animation-name': 'bounceIn', 'animation-duration': '0.5s'});
+    matchedCards.push(openCards[0]);
+    matchedCards.push(openCards[1]);
+    openCards = [];
   }
-}
-checkMatch();
-
-if (matchedCards.length === 16) {
-  /* if all the cards are matched, the Timer is stopped and the Final Scoreboard is displayed. */
-  clearInterval(timer);
-  $(".final-scoreboard").css('display', 'block');
+  else {
+    /* If the cards do not match, the card's are put in the closed position and the cards are removed from the openCards list. Code for shake animation taken from https://www.w3schools.com/howto/howto_css_shake_image.asp */
+    console.log("Cards do not match");
+    var flipBack;
+    function flipCards() {
+      console.log("flipCards has been called");
+      flipBack = setTimeout(noMatch, 3000);
+    }
+    function noMatch() {
+      console.log("noMatch has been called");
+      $(openCards[0]).parent().removeClass('.card show open').addClass('.deck .card');
+      $(openCards[1]).parent().removeClass('.card show open').addClass('.deck .card');
+    }
+    flipCards();
+    openCards = [];
+  }
+  if (matchedCards.length === 16) {
+    /* if all the cards are matched, the Timer and timer for the Star Rating are stopped and the Final Scoreboard is displayed. */
+    clearInterval(timer);
+    clearTimeout(twoStars);
+    clearTimeout(oneStar);
+    $(".final-scoreboard").css('display', 'block');
+  }
+  else {
+    matchedCards.length != 16;
+    console.log("Not all cards are matched");
+  }
+  console.log("openCards[0] after checkMatch method: " + openCards[0].attr('class'));
+  console.log("openCards[1] after checkMatch method: " + openCards[1].attr('class'));
 }
 
 var timer;
+var twoStars;
+var oneStar;
 $('.deck').one('click', function() {
   /* Function that starts the Timer in the Score Panel and Final Scoreboard when the deck is first clicked with help from https://stackoverflow.com/questions/5517597/ */
   var sec = 0;
@@ -100,9 +130,9 @@ $('.deck').one('click', function() {
     $('.minutes').html(pad(parseInt(sec / 60, 10)));
   }, 1000);
   /* Once Timer starts, Grays out Star on the right (lowers Star Rating to two Stars) after 2 minutes with help from https://stackoverflow.com/questions/14247054/ */
-  setTimeout(function(){ $('.star3').css('color', 'gray'); }, 120000);
+  twoStars = setTimeout(function(){ $('.star3').css('color', 'gray'); }, 120000);
   /* Once Timer starts, Grays out Star in the middle (lowers Star Rating to one Star) after 4 minutes with help from https://stackoverflow.com/questions/14247054/ */
-  setTimeout(function(){ $('.star2').css('color', 'gray'); }, 240000);
+  oneStar = setTimeout(function(){ $('.star2').css('color', 'gray'); }, 240000);
 });
 
 $('.score-panel .restart').on('click', function() {
@@ -112,7 +142,7 @@ $('.score-panel .restart').on('click', function() {
 
   $('.deck .card').on('click', function() {
     /*When a card is clicked, it's opened to display its picture and the Move Counter increments with each Move */
-    $(this).addClass('.card show open').css({'-webkit-backface-visibility': 'visible !important', 'backface-visibility': 'visible !important', '-webkit-animation-name': 'flipInY', 'animation-name': 'flipInY', '-webkit-animation-duration': '0.75s', 'animation-duration': '0.75s', '-webkit-animation-fill-mode': 'both', 'animation-fill-mode': 'both'});
+    $(this).addClass('.card show open');
     $('.moves').html(function(i, val) { return +val+1 });
   });
 
