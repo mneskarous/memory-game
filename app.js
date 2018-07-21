@@ -61,6 +61,10 @@ $('.deck').one('click', function() {
     $('.seconds').html(pad(++sec % 60));
     $('.minutes').html(pad(parseInt(sec / 60, 10)));
   }, 1000);
+  /* When any part of the deck is clicked, the page is scrolled to the Score Panel in case board is not properly aligned vertically with help from https://www.abeautifulsite.net/smoothly-scroll-to-an-element-without-a-jquery-plugin-2. */
+  $('html, body').animate( {
+    scrollTop: $(".score-panel").offset().top
+  }, 100);
 });
 
 var openCards = [];
@@ -90,16 +94,16 @@ function lowerStarRating() {
   var moveCount = $('.score-panel .moves').html();
   console.log("moveCount: " + moveCount);
   /* Function that lowers Star Rating after a certain amount of Moves made by the user */
-  if (moveCount >=21 && moveCount <= 25) {
-    /* If Move count is between 21 and 25, Star Rating is 3 stars */
+  if (moveCount >=26 && moveCount <= 30) {
+    /* If Move count is between 26 and 30, Star Rating is 3 stars */
     console.log("3 stars");
     $('.star4').css('color', 'gray');
-  } else if (moveCount >= 26 && moveCount <= 30) {
-    /* If Move count is between 26 and 30, Star Rating is 2 stars */
+  } else if (moveCount >= 31 && moveCount <= 35) {
+    /* If Move count is between 31 and 35, Star Rating is 2 stars */
     console.log("2 stars");
     $('.star3').css('color', 'gray');
-  } else if (moveCount >= 31) {
-    /* If Move count is greater than 30, Star Rating is 1 star */
+  } else if (moveCount >= 36) {
+    /* If Move count is greater than 35, Star Rating is 1 star */
     console.log("1 star");
     $('.star2').css('color', 'gray');
   } else {
@@ -125,11 +129,8 @@ function checkMatch() {
     console.log("Length of openCards: " + openCards.length);
   }
   if (matchedCards.length === 16) {
-    /* if all the cards are matched, the Timer and timer for the Star Rating are stopped and the Final Scoreboard is displayed. */
+    /* if all the cards are matched, the Timer is stopped and the Final Scoreboard is displayed. */
     clearInterval(timer);
-    clearTimeout(threeStars);
-    clearTimeout(twoStars);
-    clearTimeout(oneStar);
     $(".final-scoreboard").css('display', 'block');
   } else {
     console.log("Not all cards are matched");
@@ -154,7 +155,7 @@ $('.score-panel .restart').on('click', function() {
 
   $('.score-panel .moves, .final-scoreboard .moves').html(function(i, val) { return 0 }); // Move Counter resets to 0
 
-  $('.star4, .star3, .star2').css('color', 'orange'); // Resets Star Rating to 3 Stars
+  $('.star4, .star3, .star2').css('color', 'orange'); // Resets Star Rating to 4 Stars
 
   clearInterval(timer); // Stops Timer so it can be restarted when game is restarted
 
@@ -187,41 +188,4 @@ $('.score-panel .restart').on('click', function() {
       console.log("checkMatch has not been called");
     }
   });
-  function checkMatch() {
-    /* Function that checks if the cards in the openCards list match */
-    if (openCards[0].attr('class') === openCards[1].attr('class')) {
-      /* If the cards match, the cards are locked in the open position, the cards are removed from the openCards list and are added to the matchedCards list. Code for bounceIn animation taken from https://robots.thoughtbot.com/css-animation-for-beginners */
-      console.log("Cards match");
-      $(openCards[0]).parent().removeClass('.card show open').addClass('.card match').css({'animation-name': 'bounceIn', 'animation-duration': '0.5s'});
-      $(openCards[1]).parent().removeClass('.card show open').addClass('.card match').css({'animation-name': 'bounceIn', 'animation-duration': '0.5s'});
-      matchedCards.push(openCards[0]);
-      matchedCards.push(openCards[1]);
-      openCards = [];
-    } else {
-      /* If the two cards do not match, the cards are flipped back in the closed position after 3 seconds and the cards are removed from the openCards list. Code for shake animation taken from https://www.w3schools.com/howto/howto_css_shake_image.asp */
-      console.log("Cards do not match");
-      setTimeout(flipCards, 250);
-      setTimeout(function() { openCards = []; }, 250);
-      console.log("Length of openCards: " + openCards.length);
-    }
-    if (matchedCards.length === 16) {
-      /* if all the cards are matched, the Timer and timer for the Star Rating are stopped and the Final Scoreboard is displayed. */
-      clearInterval(timer);
-      clearTimeout(threeStars);
-      clearTimeout(twoStars);
-      clearTimeout(oneStar);
-      $(".final-scoreboard").css('display', 'block');
-    } else {
-      console.log("Not all cards are matched");
-    }
-    console.log("openCards[0] after checkMatch method: " + openCards[0]); // Should be undefined
-    console.log("openCards[1] after checkMatch method: " + openCards[1]); // Should be undefined
-  }
-
-  function flipCards() {
-    /* Function that flips the open unmatched cards back closed */
-    console.log("flipCards has been called");
-    $(openCards[0]).parent().css('animation', 'shake 0.5s').removeClass('.card show open').addClass('.deck .card');
-    $(openCards[1]).parent().css('animation', 'shake 0.5s').removeClass('.card show open').addClass('.deck .card');
-  }
 });
