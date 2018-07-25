@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Match Game!</title>
+    <title>Memory Game!</title>
     <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Titillium+Web">
     <link rel="stylesheet prefetch" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     <link rel="stylesheet" href="app.css">
@@ -10,8 +10,9 @@
   <body>
     <div class="container">
       <header>
-        <h1>Match Game</h1>
+        <h1>Memory Game</h1>
       </header>
+      <!-- Score Panel with Star Rating, Move Counter, Timer, and Restart Button -->
       <section class="score-panel">
         <ul class="stars">
           <li><i class="fas fa-star"></i></li>
@@ -26,56 +27,58 @@
           <i class="fas fa-redo"></i>
         </div>
       </section>
+      <!-- Deck with 4 columns of 4 rows of cards (8 pairs) -->
       <ul class="deck">
         <li class="card">
-          <i class="fas fa-fish"></i>
-        </li>
-        <li class="card match">
-          <i class="fas fa-leaf"></i>
+          <i class="fas fa-fish" id="fish1"></i>
         </li>
         <li class="card">
-          <i class="fas fa-heart"></i>
-        </li>
-        <li class="card match">
-          <i class="fas fa-bell"></i>
-        </li>
-        <li class="card match">
-          <i class="fas fa-balance-scale"></i>
+          <i class="fas fa-fish" id="fish2"></i>
         </li>
         <li class="card">
-          <i class="fas fa-leaf"></i>
-        </li>
-        <li class="card match">
-          <i class="fas fa-fish"></i>
+          <i class="fas fa-leaf" id="leaf1"></i>
         </li>
         <li class="card">
-          <i class="fas fa-bell"></i>
+          <i class="fas fa-leaf" id="leaf2"></i>
         </li>
         <li class="card">
-          <i class="fas fa-balance-scale"></i>
-        </li>
-        <li class="card match">
-          <i class="fas fa-heart"></i>
+          <i class="fas fa-heart" id="heart1"></i>
         </li>
         <li class="card">
-          <i class="fas fa-bicycle"></i>
-        </li>
-        <li class="card match">
-          <i class="fas fa-bolt"></i>
-        </li>
-        <li class="card match">
-          <i class="far fa-gem"></i>
+          <i class="fas fa-heart" id="heart2"></i>
         </li>
         <li class="card">
-          <i class="far fa-gem"></i>
+          <i class="fas fa-bell" id="bell1"></i>
         </li>
         <li class="card">
-          <i class="fas fa-bolt"></i>
+          <i class="fas fa-bell" id="bell2"></i>
         </li>
-        <li class="card match">
-          <i class="fas fa-bicycle"></i>
+        <li class="card">
+          <i class="fas fa-balance-scale" id="balance-scale1"></i>
+        </li>
+        <li class="card">
+          <i class="fas fa-balance-scale" id="balance-scale2"></i>
+        </li>
+        <li class="card">
+          <i class="fas fa-bicycle" id="bicycle1"></i>
+        </li>
+        <li class="card">
+          <i class="fas fa-bicycle" id="bicycle2"></i>
+        </li>
+        <li class="card">
+          <i class="fas fa-bolt" id="bolt1"></i>
+        </li>
+        <li class="card">
+          <i class="fas fa-bolt" id="bolt2"></i>
+        </li>
+        <li class="card">
+          <i class="far fa-gem" id="gem1"></i>
+        </li>
+        <li class="card">
+          <i class="far fa-gem" id="gem2"></i>
         </li>
       </ul>
+      <!-- Final Scoreboard that appears when all 8 pairs of cards are matched.  -->
       <section class="final-scoreboard">
         <p>Congratulations!! You've matched all of the cards!!</p>
         <ul class="stars">
