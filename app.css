@@ -1,247 +1,181 @@
 html {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 *,
 *::before,
 *::after {
-    box-sizing: inherit;
+  box-sizing: inherit;
 }
 
 html,
 body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    background: #eeeeee url('cloth_alike.png'); /* Background pattern from Subtle Patterns */
-    font-family: 'Titillium Web', sans-serif; /* Font family from Google Fonts */
+  background: #eeeeee url('cloth_alike.png'); /* Background pattern from Subtle Patterns */
+  font-family: 'Titillium Web', sans-serif; /* Font family from Google Fonts */
 }
 
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
-/* Styles for the deck of cards */
-
+/* Styles for the deck */
 .deck {
-    width: 660px;
-    min-height: 680px;
-    background: linear-gradient(135deg, rgba(73,155,234,1) 0%, rgba(73,155,234,1) 33%, rgba(27,100,179,1) 66%, rgba(27,100,179,1) 100%);
-    padding: 32px;
-    border-radius: 20px;
-    box-shadow: 22px 25px 30px 0 rgba(46, 61, 73, 0.75);
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 0 3em;
+  width: 660px;
+  min-height: 680px;
+  background: linear-gradient(135deg, rgba(73,155,234,1) 0%, rgba(73,155,234,1) 33%, rgba(27,100,179,1) 66%, rgba(27,100,179,1) 100%);
+  padding: 32px;
+  border-radius: 20px;
+  box-shadow: 22px 25px 30px 0 rgba(46, 61, 73, 0.75);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 3em;
 }
 
+/* Styles for the cards when they're closed */
 .deck .card {
-    height: 125px;
-    width: 125px;
-    background: #102333;
-    font-size: 0;
-    color: #ffffff;
-    border-radius: 12px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 15px 12px 30px 0 rgba(46, 61, 73, 0.75);
+  height: 125px;
+  width: 125px;
+  background: #102333;
+  font-size: 0;
+  color: #ffffff;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 15px 12px 30px 0 rgba(46, 61, 73, 0.75);
 }
 
+/* Styles for the cards when they're open */
 .deck .card.open {
-    transform: rotateY(0);
-    background: #02b3e4;
-    cursor: default;
+  cursor: default;
+  background: #02b3e4;
+  font-size: 33px;
 }
 
-.deck .card.show {
-    font-size: 33px;
-}
-
+/* Styles for the cards when they're matched */
 .deck .card.match {
-    cursor: default;
-    background: #5f2dda;
-    font-size: 33px;
+  cursor: default;
+  background: #5f2dda;
+  font-size: 33px;
 }
 
 /* Styles for the Score Panel */
-
 .score-panel {
-    text-align: left;
-    width: 560px;
-    margin-bottom: 10px;
-    font-size: 1.5em;
+  text-align: left;
+  width: 560px;
+  margin-bottom: 10px;
+  font-size: 1.5em;
 }
 
 .score-panel .stars {
-    margin: 0;
-    padding: 0;
-    display: inline-block;
-    margin: 0 5px 0 0;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  margin: 0 5px 0 0;
 }
 
 .score-panel .stars li {
-    list-style: none;
-    display: inline-block;
-    color: orange;
+  list-style: none;
+  display: inline-block;
+  color: orange;
 }
 
 .score-panel .moves {
-    margin-left: 75px;
+  margin-left: 75px;
 }
 
 .score-panel .timer {
-    margin-left: 75px;
+  margin-left: 75px;
 }
 
 .score-panel .restart {
-    float: right;
-    cursor: pointer;
+  float: right;
+  cursor: pointer;
 }
 
-.final-scoreboard { /* The Final Scoreboard is hidden until all of the cards are matched by the user */
-    margin: auto;
-    text-align: center;
-    width: 950px;
-    min-height: 400px;
-    background: linear-gradient(135deg, rgba(73,155,234,1) 0%, rgba(73,155,234,1) 33%, rgba(27,100,179,1) 66%, rgba(27,100,179,1) 100%);
-    padding: 32px;
-    border-radius: 20px;
-    box-shadow: 22px 25px 30px 0 rgba(46, 61, 73, 0.75);
-    position: fixed; /* Sits on top of the page content */
-    display: none; /* Hidden by default */
-    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
-}
-
+/* Styles for the Final Scoreboard */
 .final-scoreboard {
-    /* Code taken from https://robots.thoughtbot.com/css-animation-for-beginners */
-    font-size: 2.5em;
-    animation-name: bounceIn;
-    animation-duration: 0.75s;
+  margin: auto;
+  text-align: center;
+  width: 950px;
+  min-height: 400px;
+  background: linear-gradient(135deg, rgba(73,155,234,1) 0%, rgba(73,155,234,1) 33%, rgba(27,100,179,1) 66%, rgba(27,100,179,1) 100%);
+  padding: 32px;
+  border-radius: 20px;
+  box-shadow: 22px 25px 30px 0 rgba(46, 61, 73, 0.75);
+  position: fixed; /* Sits on top of the page content */
+  display: none; /* Hidden by default until all of the cards are matched by the user */
+  z-index: 2;
+  font-size: 2.5em;
+  animation-name: bounceIn; /* Code taken from https://robots.thoughtbot.com/css-animation-for-beginners */
+  animation-duration: 0.75s;
 }
 
 .final-scoreboard .stars {
-    margin: 0;
-    padding: 0;
-    display: inline-block;
-    margin: 0 5px 0 0;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  margin: 0 5px 0 0;
 }
 
 .final-scoreboard .stars li {
-    list-style: none;
-    display: inline-block;
-    color: orange;
+  list-style: none;
+  display: inline-block;
+  color: orange;
 }
 
 .final-scoreboard .moves {
-    margin-left: 75px;
+  margin-left: 75px;
 }
 
 .final-scoreboard .timer {
-    margin-left: 75px;
+  margin-left: 75px;
 }
 
 .final-scoreboard a {
-    text-decoration: none;
-    color: inherit;
+  text-decoration: none;
+  color: inherit;
 }
 
+/* Keyframes for bounceIn amimation taken from https://robots.thoughtbot.com/css-animation-for-beginners */
 @keyframes bounceIn {
-    /* Code taken from https://robots.thoughtbot.com/css-animation-for-beginners */
-    0% {
-      transform: scale(0.1);
-      opacity: 0;
-    }
-    60% {
-      transform: scale(1.2);
-      opacity: 1;
-    }
-    100% {
-      transform: scale(1);
-    }
+  0% {
+    transform: scale(0.1);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
+/* Keyframes for shake amimation taken from https://www.w3schools.com/howto/howto_css_shake_image.asp */
 @keyframes shake {
-    /* Code taken from https://www.w3schools.com/howto/howto_css_shake_image.asp */
-    0% { transform: translate(1px, 1px) rotate(0deg); }
-    10% { transform: translate(-1px, -2px) rotate(-1deg); }
-    20% { transform: translate(-3px, 0px) rotate(1deg); }
-    30% { transform: translate(3px, 2px) rotate(0deg); }
-    40% { transform: translate(1px, -1px) rotate(1deg); }
-    50% { transform: translate(-1px, 2px) rotate(-1deg); }
-    60% { transform: translate(-3px, 1px) rotate(0deg); }
-    70% { transform: translate(3px, 1px) rotate(-1deg); }
-    80% { transform: translate(-1px, -1px) rotate(1deg); }
-    90% { transform: translate(1px, 2px) rotate(0deg); }
-    100% { transform: translate(1px, -2px) rotate(-1deg); }
-}
-
-@-webkit-keyframes flipInY {
-    /* Code taken from http://www.theappguruz.com/tag-tools/web/CSSAnimations/ */
-    0% {
-    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
-    transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
-    -webkit-transition-timing-function: ease-in;
-    transition-timing-function: ease-in;
-    opacity: 0;
-    }
-    40% {
-    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -20deg);
-    transform: perspective(400px) rotate3d(0, 1, 0, -20deg);
-    -webkit-transition-timing-function: ease-in;
-    transition-timing-function: ease-in;
-    }
-    60% {
-    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 10deg);
-    transform: perspective(400px) rotate3d(0, 1, 0, 10deg);
-    opacity: 1;
-    }
-    80% {
-    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
-    transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
-    }
-    100% {
-    -webkit-transform: perspective(400px);
-    transform: perspective(400px);
-    }
-}
-
-@keyframes flipInY {
-    /* Code taken from http://www.theappguruz.com/tag-tools/web/CSSAnimations/ */
-    0% {
-    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
-    transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
-    -webkit-transition-timing-function: ease-in;
-    transition-timing-function: ease-in;
-    opacity: 0;
-    }
-    40% {
-    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -20deg);
-    transform: perspective(400px) rotate3d(0, 1, 0, -20deg);
-    -webkit-transition-timing-function: ease-in;
-    transition-timing-function: ease-in;
-    }
-    60% {
-    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 10deg);
-    transform: perspective(400px) rotate3d(0, 1, 0, 10deg);
-    opacity: 1;
-    }
-    80% {
-    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
-    transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
-    }
-    100% {
-    -webkit-transform: perspective(400px);
-    transform: perspective(400px);
-    }
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
