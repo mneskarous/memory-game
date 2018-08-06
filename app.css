@@ -17,8 +17,8 @@ body {
 }
 
 body {
-  background: #eeeeee url('cloth_alike.png'); /* Background pattern from Subtle Patterns */
-  font-family: 'Titillium Web', sans-serif; /* Font family from Google Fonts */
+  background: #eeeeee url(cloth_alike.png); /* Background pattern from Subtle Patterns */
+  font-family: "Titillium Web", sans-serif; /* Font family from Google Fonts */
 }
 
 .container {
@@ -116,19 +116,18 @@ body {
   padding: 32px;
   border-radius: 20px;
   box-shadow: 22px 25px 30px 0 rgba(46, 61, 73, 0.75);
-  position: fixed; /* Sits on top of the page content */
+  position: fixed; /* Sits on top of the deck */
   display: none; /* Hidden by default until all of the cards are matched by the user */
   z-index: 2;
   font-size: 2.5em;
-  animation-name: bounceIn; /* Code taken from https://robots.thoughtbot.com/css-animation-for-beginners */
+  animation-name: bounceIn; /* Code from https://robots.thoughtbot.com/css-animation-for-beginners */
   animation-duration: 0.75s;
 }
 
 .final-scoreboard .stars {
-  margin: 0;
+  margin: 0 5px 0 0;
   padding: 0;
   display: inline-block;
-  margin: 0 5px 0 0;
 }
 
 .final-scoreboard .stars li {
@@ -150,7 +149,7 @@ body {
   color: inherit;
 }
 
-/* Keyframes for bounceIn amimation taken from https://robots.thoughtbot.com/css-animation-for-beginners */
+/* Keyframes for bounceIn amimation from https://robots.thoughtbot.com/css-animation-for-beginners */
 @keyframes bounceIn {
   0% {
     transform: scale(0.1);
@@ -165,7 +164,7 @@ body {
   }
 }
 
-/* Keyframes for shake amimation taken from https://www.w3schools.com/howto/howto_css_shake_image.asp */
+/* Keyframes for shake amimation from https://www.w3schools.com/howto/howto_css_shake_image.asp */
 @keyframes shake {
   0% { transform: translate(1px, 1px) rotate(0deg); }
   10% { transform: translate(-1px, -2px) rotate(-1deg); }
