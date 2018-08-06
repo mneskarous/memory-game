@@ -32,7 +32,12 @@ body {
 .deck {
   width: 660px;
   min-height: 680px;
-  background: linear-gradient(135deg, rgba(73,155,234,1) 0%, rgba(73,155,234,1) 33%, rgba(27,100,179,1) 66%, rgba(27,100,179,1) 100%);
+  background: linear-gradient(135deg,
+              rgba(73,155,234,1) 0%,
+              rgba(73,155,234,1) 33%,
+              rgba(27,100,179,1) 66%,
+              rgba(27,100,179,1) 100%);
+  margin: 0 0 3em;
   padding: 32px;
   border-radius: 20px;
   box-shadow: 22px 25px 30px 0 rgba(46, 61, 73, 0.75);
@@ -40,22 +45,21 @@ body {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  margin: 0 0 3em;
 }
 
 /* Styles for the cards when they're closed */
 .deck .card {
-  height: 125px;
   width: 125px;
+  height: 125px;
   background: #102333;
   font-size: 0;
   color: #ffffff;
   border-radius: 12px;
+  box-shadow: 15px 12px 30px 0 rgba(46, 61, 73, 0.75);
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 15px 12px 30px 0 rgba(46, 61, 73, 0.75);
 }
 
 /* Styles for the cards when they're open */
@@ -81,10 +85,9 @@ body {
 }
 
 .score-panel .stars {
-  margin: 0;
+  margin: 0 5px 0 0;
   padding: 0;
   display: inline-block;
-  margin: 0 5px 0 0;
 }
 
 .score-panel .stars li {
@@ -108,12 +111,16 @@ body {
 
 /* Styles for the Final Scoreboard */
 .final-scoreboard {
-  margin: auto;
-  text-align: center;
   width: 950px;
   min-height: 400px;
-  background: linear-gradient(135deg, rgba(73,155,234,1) 0%, rgba(73,155,234,1) 33%, rgba(27,100,179,1) 66%, rgba(27,100,179,1) 100%);
+  margin: auto;
   padding: 32px;
+  text-align: center;
+  background: linear-gradient(135deg,
+              rgba(73,155,234,1) 0%,
+              rgba(73,155,234,1) 33%,
+              rgba(27,100,179,1) 66%,
+              rgba(27,100,179,1) 100%);
   border-radius: 20px;
   box-shadow: 22px 25px 30px 0 rgba(46, 61, 73, 0.75);
   position: fixed; /* Sits on top of the deck */
