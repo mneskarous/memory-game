@@ -74,6 +74,12 @@ $('.deck .card').on('click', function() {
   lowerStarRating();
   /* The card is opened to display its picture and is assigned a variable */
   let openedCard = $(this).addClass('.card open').children();
+  if ($('.card').hasClass('open')) {
+    /* If the card has the class name 'open' then pointer-events is set to none so that an opened card can't be clicked again and matched to itself */
+    $(this).css('pointer-events', 'none');
+  } else {
+    console.log(".card class does not have class 'open'")
+  }
   /* The card is added to an array of open cards */
   openCards.push(openedCard);
   console.log("Length of openCards: " + openCards.length);
@@ -143,10 +149,10 @@ function checkMatch() {
 }
 
 function flipCards() {
-  /* Helper function that changes the classes of the unmatched cards to '.deck .card' and flips the open unmatched cards back closed with code for shake animation from https://www.w3schools.com/howto/howto_css_shake_image.asp */
+  /* Helper function that allows the cards that are flipped back closed be able to be clicked open again, changes the classes of the unmatched cards to '.deck .card' and flips the open unmatched cards back closed with code for shake animation from https://www.w3schools.com/howto/howto_css_shake_image.asp */
   console.log("flipCards has been called");
-  $(openCards[0]).parent().css('animation', 'shake 0.5s').removeClass('.card open').addClass('.deck .card');
-  $(openCards[1]).parent().css('animation', 'shake 0.5s').removeClass('.card open').addClass('.deck .card');
+  $(openCards[0]).parent().css({'animation': 'shake 0.5s', 'pointer-events': 'auto'}).removeClass('.card open').addClass('.deck .card');
+  $(openCards[1]).parent().css({'animation': 'shake 0.5s', 'pointer-events': 'auto'}).removeClass('.card open').addClass('.deck .card');
 }
 
 /* --When the Restart button is clicked-- */
