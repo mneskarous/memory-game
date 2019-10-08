@@ -21,7 +21,7 @@ To play: Simply open the index.html file in browser!
 
 ## Screenshots: 
 
-![github-small](https://i.imgur.com/CSOgv3g.png)
+![image-small](https://i.imgur.com/CSOgv3g.png)
 ![image](https://i.imgur.com/UlR6iOF.png)
 ![image](https://i.imgur.com/Ir5IeZ4.png)
 ![image](https://i.imgur.com/yA74c2P.png)
