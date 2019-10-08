@@ -21,8 +21,8 @@ To play: Simply open the index.html file in browser!
 
 ## Screenshots: 
 
-![image](https://i.imgur.com/CSOgv3g.png)
-![image](https://i.imgur.com/UlR6iOF.png)
-![image](https://i.imgur.com/Ir5IeZ4.png)
-![image](https://i.imgur.com/yA74c2P.png)
-![image](https://i.imgur.com/7lKXeam.png)
+![Alt text](https://i.imgur.com/CSOgv3g.png)
+![Alt text](https://i.imgur.com/UlR6iOF.png)
+![Alt text](https://i.imgur.com/Ir5IeZ4.png)
+![Alt text](https://i.imgur.com/yA74c2P.png)
+![Alt text](https://i.imgur.com/7lKXeam.png)
