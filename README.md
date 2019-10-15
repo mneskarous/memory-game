@@ -23,6 +23,7 @@ To play: Simply open the index.html file in browser!
 
 ![Alt text](https://i.imgur.com/i0RD0Wi.gif)
 ![Alt text](https://i.imgur.com/U9vGXL5.gif)
+![Alt text](https://i.imgur.com/KR6PrT6.gif)
 ![Alt text](https://i.imgur.com/CSOgv3g.png)
 ![Alt text](https://i.imgur.com/UlR6iOF.png)
 ![Alt text](https://i.imgur.com/Ir5IeZ4.png)
